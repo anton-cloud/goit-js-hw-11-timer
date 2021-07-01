@@ -13,16 +13,24 @@ class CountdownTimer {
     return String(value).padStart(2, '0');
   }
 
+  renderPage(days, hours, mins, secs) {
+    this.days.textContent = days;
+    this.hours.textContent = hours;
+    this.minutes.textContent = mins;
+    this.seconds.textContent = secs;
+  }
+
   showTime() {
     setInterval(() => {
       const currentTime = new Date().getTime();
       const time = this.targetDate - currentTime;
-      this.days.textContent = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
-      this.hours.textContent = this.pad(
-        Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-      );
-      this.minutes.textContent = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-      this.seconds.textContent = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+
+      const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+      const hours = this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+      const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+
+      this.renderPage(days, hours, mins, secs);
     }, 1000);
   }
 }
